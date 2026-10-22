@@ -4,10 +4,12 @@
 
   function defaults() {
     var hon = {city: 'Honfleur', lat: 49.4189, lon: 0.2333, tone: 'auto'};
+    var lecor = {city: 'Le Corbier', lat: 45.2395, lon: 6.2715, tone: 'auto'};
     function w(id, style) { return {id: id, city: hon.city, lat: hon.lat, lon: hon.lon, style: style, tone: 'auto'}; }
+    function wl(id, style) { return {id: id, city: lecor.city, lat: lecor.lat, lon: lecor.lon, style: style, tone: 'auto'}; }
     return {
       fahrenheit: false,
-      weather: [w('w1', 'current'), w('w2', 'hourly'), w('w3', 'daily'), w('w4', 'details')],
+      weather: [w('w1', 'current'), w('w2', 'daily'), wl('w3', 'details')],
       news: [
         {id: 'honfleur-infos', name: 'Honfleur-Infos', url: 'https://www.honfleur-infos.com/feed/', enabled: true, builtin: true},
         {id: 'pays-auge', name: "Le Pays d'Auge", url: GN + '(Honfleur+OR+%22Pays+d%27Auge%22)+site:actu.fr+when:14d', enabled: true, builtin: true},
