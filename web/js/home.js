@@ -178,14 +178,14 @@
   function buildApps(sec) {
     H.tv.apps(function (apps) {
       H.tv.find(/tizentube/i, function (tubeApp) {
-       H.tv.find(/tizenbrew/i, function (brew) {
+       H.tv.find(/tizenbrewnextgeneration|tizenbrew/i, function (brew) {
         var tube = tubeApp || brew;
         H.tv.find(/spotify/i, function (spot) {
           sec.track.innerHTML = '';
           sec.track.appendChild(appTile({title: 'YouTube', icon: 'icons/youtube.png'}, 'tube', function () {
             if (tube) H.tv.launch(tube.id, function (ok) { if (!ok) H.toast("TizenTube ne s'ouvre pas"); });
             else showTabAndFocus('youtube');
-          }, tubeApp ? 'Sans pub' : brew ? 'Via TizenBrew' : 'À installer'));
+          }, tubeApp || brew ? 'Sans pub' : 'À installer'));
           sec.track.appendChild(appTile({title: 'Spotify', icon: 'icons/spotify.svg'}, 'spotify', function () {
             if (spot) H.tv.launch(spot.id, function (ok) { if (!ok) H.toast("Spotify ne s'ouvre pas"); });
             else showTabAndFocus('music');
@@ -320,7 +320,7 @@
     ov.innerHTML = '<div class="fbpage"><div class="fb-text"><h1>Installer TizenTube</h1>' +
       '<p>TizenTube bloque les pubs YouTube et ajoute SponsorBlock. Horizon ne peut pas le remplacer : il le lance depuis l\'accueil dès qu\'il est installé.</p>' +
       '<p>Deux possibilités, détaillées dans le guide du projet (docs/README.md) :</p>' +
-      '<p>• <b>TizenBrew</b> : module <b>@foxreis/tizentube</b>, à ajouter dans TizenBrew.<br>• <b>Version autonome</b> : fichier .wgt de la dernière version, installé avec Apps2Samsung.</p>' +
+      '<p>• <b>TizenBrewNextGeneration</b> : module <b>@foxreis/tizentube</b>, à ajouter dans l\'app.<br>• <b>Version autonome</b> : fichier .wgt de la dernière version, installé avec Apps2Samsung.</p>' +
       '<div class="btns"></div></div><div class="fb-qr">' + svg + '</div></div>';
     var b1 = H.button('open', 'Ouvrir le guide', function () { H.tv.openUrl(url); }, true);
     H.$('.btns', ov).appendChild(b1);
@@ -339,17 +339,17 @@
   function buildYoutube(pane) {
     pane.innerHTML = '';
     H.tv.find(/tizentube/i, function (tube) {
-      H.tv.find(/tizenbrew/i, function (brew) {
+      H.tv.find(/tizenbrewnextgeneration|tizenbrew/i, function (brew) {
         H.tv.find(/youtube/i, function (stock) {
           pane.innerHTML = '';
           var btns = [];
           if (tube) btns.push(H.button('play', 'Ouvrir TizenTube', function () { H.tv.launch(tube.id, function (ok) { if (!ok) H.toast("TizenTube ne s'ouvre pas"); }); }, true));
-          else if (brew) btns.push(H.button('play', 'Ouvrir TizenBrew', function () { H.tv.launch(brew.id); }, true));
+          else if (brew) btns.push(H.button('play', 'Ouvrir TizenBrewNextGeneration', function () { H.tv.launch(brew.id); }, true));
           else btns.push(H.button('open', 'Comment l\'installer', installGuide, true));
           if (stock && stock !== tube && !/tizentube/i.test(stock.title)) btns.push(H.button('play', 'YouTube officiel (avec pubs)', function () { H.tv.launch(stock.id); }));
           if (tube || brew) btns.push(H.button('open', 'Guide TizenTube', installGuide));
           var status = tube ? '<span class="dot ok"></span>TizenTube détecté : pubs bloquées, SponsorBlock actif' :
-            brew ? '<span class="dot ok"></span>TizenBrew détecté : lance le module TizenTube depuis TizenBrew' :
+            brew ? '<span class="dot ok"></span>TizenBrewNextGeneration détecté : YouTube sans pub' :
             '<span class="dot"></span>TizenTube n\'est pas installé sur cette TV';
           pane.appendChild(heroPage('yt', 'play', 'YouTube sans pub',
             'Horizon lance TizenTube, l\'application qui retire les publicités de YouTube, bloque les segments sponsorisés et améliore l\'affichage des titres.',
