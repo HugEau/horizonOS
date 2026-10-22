@@ -339,7 +339,7 @@
   function buildYoutube(pane) {
     pane.innerHTML = '';
     H.tv.find(/tizentube/i, function (tube) {
-      H.tv.find(/tizenbrewnextgeneration|tizenbrew/i, function (brew) {
+      H.tv.find(/tizenbrewnextgeneration/i, function (brew) {
         H.tv.find(/youtube/i, function (stock) {
           pane.innerHTML = '';
           var btns = [];
@@ -349,7 +349,7 @@
           if (stock && stock !== tube && !/tizentube/i.test(stock.title)) btns.push(H.button('play', 'YouTube officiel (avec pubs)', function () { H.tv.launch(stock.id); }));
           if (tube || brew) btns.push(H.button('open', 'Guide TizenTube', installGuide));
           var status = tube ? '<span class="dot ok"></span>TizenTube détecté : pubs bloquées, SponsorBlock actif' :
-            brew ? '<span class="dot ok"></span>TizenBrewNextGeneration détecté : YouTube sans pub' :
+            brew ? '<span class="dot ok"></span>TizenTube détecté : YouTube sans pub' :
             '<span class="dot"></span>TizenTube n\'est pas installé sur cette TV';
           pane.appendChild(heroPage('yt', 'play', 'YouTube sans pub',
             'Horizon lance TizenTube, l\'application qui retire les publicités de YouTube, bloque les segments sponsorisés et améliore l\'affichage des titres.',
