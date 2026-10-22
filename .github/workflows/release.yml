@@ -1,0 +1,23 @@
+name: Release
+
+# Publier un tag (git tag v1.0.0 && git push --tags) construit Horizon-tizen.wgt et l'attache à la release GitHub,
+# c'est ce fichier que TizenBrew Installer télécharge (« utilisateur/dépôt »).
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  wgt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python3 tizen/build.py
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: Horizon-tizen.wgt
